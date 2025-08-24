@@ -3,73 +3,144 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Texto colorido</title>
+<title>Tic Tac Toe</title>
 <style>
   body {
-    margin: 0;
-    background-color: #121212; /* fondo oscuro */
+    background-color: #222;
+    color: white;
+    font-family: Arial, sans-serif;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    font-family: Arial, sans-serif;
-    color: white;
+    height: 100vh;
+    margin: 0;
   }
-  .container {
+  h1 {
+    margin-bottom: 20px;
+  }
+  table {
+    border-collapse: collapse;
+  }
+  td {
+    width: 80px;
+    height: 80px;
     text-align: center;
+    vertical-align: middle;
+    font-size: 3rem;
+    border: 2px solid white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
   }
-  .colorful-text {
-    font-size: 2rem;
-    font-weight: bold;
-    line-height: 2.5rem;
+  td:hover {
+    background-color: #444;
   }
-  .colorful-text span {
-    display: inline-block;
-    margin: 0 5px;
-    animation: colorChange 6s infinite;
+  .X {
+    color: #e63946;
   }
-  /* Crear varios colores y animarlos en ciclo */
-  .colorful-text span:nth-child(1) { animation-delay: 0s; color: #e63946; }
-  .colorful-text span:nth-child(2) { animation-delay: 1s; color: #f1faee; }
-  .colorful-text span:nth-child(3) { animation-delay: 2s; color: #a8dadc; }
-  .colorful-text span:nth-child(4) { animation-delay: 3s; color: #457b9d; }
-  .colorful-text span:nth-child(5) { animation-delay: 4s; color: #1d3557; }
-  .colorful-text span:nth-child(6) { animation-delay: 5s; color: #ffb703; }
-
-  @keyframes colorChange {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.6; }
+  .O {
+    color: #457b9d;
+  }
+  #status {
+    margin-top: 20px;
+    font-size: 1.2rem;
+  }
+  #resetBtn {
+    margin-top: 20px;
+    padding: 8px 16px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #1d3557;
+    border: none;
+    color: white;
+    border-radius: 5px;
+  }
+  #resetBtn:hover {
+    background-color: #457b9d;
   }
 </style>
 </head>
 <body>
-  <div class="container">
-    <div class="colorful-text">
-      <span>Entre</span>
-      <span>SEPA</span>
-      <span>HPTA</span>
-      <span>Entre</span>
-      <span>SEPA</span>
-      <span>HPTA</span>
-      <span>Entre</span>
-      <span>SEPA</span>
-      <span>HPTA</span>
-      <span>Entre</span>
-      <span>SEPA</span>
-      <span>HPTA</span>
-      <span>Entre</span>
-      <span>SEPA</span>
-      <span>HPTA</span>
-      <span>Entre</span>
-      <span>SEPA</span>
-      <span>HPTA</span>
-      <span>Entre</span>
-      <span>SEPA</span>
-      <span>HPTA</span>
-      <span>Entre</span>
-      <span>SEPA</span>
-      <span>HPTA</span>
-    </div>
-  </div>
+
+<h1>Tic Tac Toe</h1>
+<table>
+  <tr>
+    <td id="0"></td>
+    <td id="1"></td>
+    <td id="2"></td>
+  </tr>
+  <tr>
+    <td id="3"></td>
+    <td id="4"></td>
+    <td id="5"></td>
+  </tr>
+  <tr>
+    <td id="6"></td>
+    <td id="7"></td>
+    <td id="8"></td>
+  </tr>
+</table>
+
+<div id="status">Turno de: X</div>
+<button id="resetBtn">Reiniciar juego</button>
+
+<script>
+  let currentPlayer = "X";
+  const cells = document.querySelectorAll("td");
+  const status = document.getElementById("status");
+  const resetBtn = document.getElementById("resetBtn");
+
+  function checkWin() {
+    const winCombos = [
+      [0,1,2],[3,4,5],[6,7,8], // filas
+      [0,3,6],[1,4,7],[2,5,8], // columnas
+      [0,4,8],[2,4,6]          // diagonales
+    ];
+    return winCombos.some(combo => {
+      return combo.every(index => {
+        return cells[index].textContent === currentPlayer;
+      });
+    });
+  }
+
+  function checkDraw() {
+    return [...cells].every(cell => cell.textContent !== "");
+  }
+
+  function updateStatus(message) {
+    status.textContent = message;
+  }
+
+  function resetGame() {
+    cells.forEach(cell => {
+      cell.textContent = "";
+      cell.classList.remove("X","O");
+      cell.style.pointerEvents = "auto";
+    });
+    currentPlayer = "X";
+    updateStatus("Turno de: " + currentPlayer);
+  }
+
+  cells.forEach(cell => {
+    cell.addEventListener("click", () => {
+      if(cell.textContent === "") {
+        cell.textContent = currentPlayer;
+        cell.classList.add(currentPlayer);
+        if(checkWin()) {
+          updateStatus("¡Ha ganado " + currentPlayer + "!");
+          cells.forEach(c => c.style.pointerEvents = "none");
+        } else if (checkDraw()) {
+          updateStatus("Empate!");
+        } else {
+          currentPlayer = currentPlayer === "X" ? "O" : "X";
+          updateStatus("Turno de: " + currentPlayer);
+        }
+      }
+    });
+  });
+
+  resetBtn.addEventListener("click", resetGame);
+</script>
+
 </body>
 </html>
