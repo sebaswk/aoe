@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Texto colorido</title>
+<style>
+  body {
+    margin: 0;
+    background-color: #121212; /* fondo oscuro */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    color: white;
+  }
+  .container {
+    text-align: center;
+  }
+  .colorful-text {
+    font-size: 2rem;
+    font-weight: bold;
+    line-height: 2.5rem;
+  }
+  .colorful-text span {
+    display: inline-block;
+    margin: 0 5px;
+    animation: colorChange 6s infinite;
+  }
+  /* Crear varios colores y animarlos en ciclo */
+  .colorful-text span:nth-child(1) { animation-delay: 0s; color: #e63946; }
+  .colorful-text span:nth-child(2) { animation-delay: 1s; color: #f1faee; }
+  .colorful-text span:nth-child(3) { animation-delay: 2s; color: #a8dadc; }
+  .colorful-text span:nth-child(4) { animation-delay: 3s; color: #457b9d; }
+  .colorful-text span:nth-child(5) { animation-delay: 4s; color: #1d3557; }
+  .colorful-text span:nth-child(6) { animation-delay: 5s; color: #ffb703; }
+
+  @keyframes colorChange {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="colorful-text">
+      <span>Oe</span>
+      <span>oe</span>
+      <span>oe</span>
+      <span>los</span>
+      <span>AGE</span>
+      <span>muchas</span>
+      <span>veces</span>
+      <span>Oe</span>
+      <span>oe</span>
+      <span>oe</span>
+      <span>los</span>
+      <span>AGE</span>
+      <span>muchas</span>
+      <span>veces</span>
+      <span>Oe</span>
+      <span>oe</span>
+      <span>oe</span>
+      <span>los</span>
+      <span>AGE</span>
+      <span>muchas</span>
+      <span>veces</span>
+    </div>
+  </div>
+</body>
+</html>
