@@ -2,8 +2,8 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Colombia time</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>Reloj Minimalista Bogotá</title>
 <style>
   body {
     background-color: #121212;
@@ -15,18 +15,37 @@
     height: 100vh;
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 0 5vw;
+    box-sizing: border-box;
   }
   #time {
-    font-size: 20vw; /* tamaño relativo al ancho del dispositivo */
+    font-size: 15vw;
     font-weight: 300;
     letter-spacing: 0.1em;
-    max-font-size: 8rem; /* tamaño máximo para no crecer demasiado en pantallas grandes */
+    line-height: 1;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    user-select: none;
   }
   #date {
-    font-size: 5vw; /* más pequeño que el tiempo, pero ajustable */
+    font-size: 5vw;
     margin-top: 10px;
     font-weight: 200;
-    max-font-size: 1.5rem;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    user-select: none;
+  }
+  @media (min-width: 600px) {
+    #time {
+      font-size: 6rem;
+    }
+    #date {
+      font-size: 1.5rem;
+    }
   }
 </style>
 </head>
@@ -36,20 +55,16 @@
 
   <script>
     function updateTime() {
-      // Bogotá está en UTC -5, ajustar hora usando opciones de Intl.DateTimeFormat
       const optionsTime = { timeZone: 'America/Bogota', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
       const optionsDate = { timeZone: 'America/Bogota', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-
       const now = new Date();
       const timeString = new Intl.DateTimeFormat('es-CO', optionsTime).format(now);
       const dateString = new Intl.DateTimeFormat('es-CO', optionsDate).format(now);
-
       document.getElementById('time').textContent = timeString;
       document.getElementById('date').textContent = dateString.charAt(0).toUpperCase() + dateString.slice(1);
     }
-
     setInterval(updateTime, 1000);
-    updateTime(); // llamada inicial para mostrar hora sin retraso
+    updateTime();
   </script>
 </body>
 </html>
