@@ -17,14 +17,16 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
   #time {
-    font-size: 8rem;
+    font-size: 20vw; /* tamaño relativo al ancho del dispositivo */
     font-weight: 300;
     letter-spacing: 0.1em;
+    max-font-size: 8rem; /* tamaño máximo para no crecer demasiado en pantallas grandes */
   }
   #date {
-    font-size: 1.5rem;
+    font-size: 5vw; /* más pequeño que el tiempo, pero ajustable */
     margin-top: 10px;
     font-weight: 200;
+    max-font-size: 1.5rem;
   }
 </style>
 </head>
